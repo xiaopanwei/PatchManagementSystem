@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布补丁</title>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-row">
+        <a class="title">Patch</a>
+    </li>
+    <li class="layui-nav-item"><a href="../../../appSetting">App管理</a></li>
+    <li class="layui-nav-item layui-this"><a  >补丁管理</a></li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="../login/logout">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+<label class="h1_title">发布补丁</label>
+<div class="body_container">
+    <form class="layui-form" action="../../../publish/submitPatch">
+        <div class="layui-form-item">
+            <label class="layui-form-label label">App版本</label>
+            <div class="layui-input-block">
+                <input type="text" required lay-verify="required" autocomplete="off" value="{{appVersionName}}" disabled
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">补丁描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="patch_content" required lay-verify="required" placeholder="请输入补丁描述"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">补丁版本</label>
+            <div class="layui-input-block">
+                <input type="text" name="patch_version" required lay-verify="required" placeholder="请输入补丁版本号"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">补丁文件</label>
+            <input type="text" name="appId" class="layui-hide" value="{{appId}}">
+            <input type="text" name="appVersionCode" class="layui-hide" value="{{appVersionCode}}">
+            <input type="text" class="layui-hide" name="patch_url" id="patch_url" required lay-verify="required" autocomplete="off" value="">
+            <input type="text" class="layui-hide" name="patch_size" id="patch_size" value="">
+
+            <div class="layui-input-block">
+                <input type="button" name="upload" class="layui-btn layui-btn-radius layui-btn-normal" id="upload" value= "上传">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button id="submit" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-disabled">提交</button>
+        </div>
+    </form>
+
+</div>
+</body>
+<script>
+    layui.use('upload', function () {
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#upload' //绑定元素
+            ,accept:'file'
+            , url: '../../../publish/uploadPatch' //上传接口
+            , done: function (res) {
+                //上传完毕回调
+                if (res.error==0){
+                    alert("上传成功")
+                    $("#patch_url").val(res.msg)
+                    $("#patch_size").val(res.patch_size)
+                    $("#upload").val("已上传");
+                    $("#submit").removeClass("layui-btn-disabled");
+                } else {
+                    alert(res.msg)
+                }
+
+            }
+            , error: function () {
+                //请求异常回调
+                alert("上传失败")
+            }
+        });
+    });
+</script>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+
+    function btnClick() {
+        window.location.href = "../appSetting/addAppName";
+    }
+</script>
+</html>

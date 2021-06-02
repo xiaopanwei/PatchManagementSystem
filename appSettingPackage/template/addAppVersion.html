@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加App版本</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-row">
+        <a class="title">Patch</a>
+    </li>
+    <li class="layui-nav-item layui-this"><a href="../../appSetting">App管理</a></li>
+    <li class="layui-nav-item"><a  >补丁管理</a></li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="../login/logout">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+
+<label class="h1_title">添加App版本</label>
+<div class="body_container">
+    <form class="layui-form" action="../../../appSetting/doAddAppVersion/{{appId}}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">App版本名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="app_name" required lay-verify="required" placeholder="请输入App版本名称"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">App版本号</label>
+            <div class="layui-input-block">
+                <input type="text" name="app_version" required lay-verify="required" placeholder="请输入App版本号"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit>立即提交</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+</body>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+    function btnClick() {
+        window.location.href="../appSetting/addAppName";
+    }
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>历史补丁</title>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-row">
+        <a class="title">Patch</a>
+    </li>
+    <li class="layui-nav-item"><a href="../../../appSetting">App管理</a></li>
+    <li class="layui-nav-item layui-this"><a>补丁管理</a></li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="../login/logout">退出登录</a></dd>
+        </dl>
+    </li>
+</ul>
+<label class="h1_title">历史补丁</label>
+<div class="body_container">
+
+    {% for version in historyPatchList['versions'] %}
+    <div class="child">
+        <label class="label">APP版本: {{version}}</label>
+        <table class="layui-table">
+            <colgroup>
+                <col width="120">
+                <col width="340">
+                <col width="200">
+                <col width="100">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>补丁版本</th>
+                <th>补丁描述</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            {% for patch in historyPatchList['versionList'][version] %}
+            <tr>
+                <td>{{patch.patchVersion}}</td>
+                <td>{{patch.patchContent}}</td>
+                <td>{{patch.updateTime}}</td>
+                <td>
+                    <a class="a" href="../../details/{{patch.patchId}}">详情</a>
+                </td>
+                {%endfor%}
+            </tr>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+</body>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+
+    function btnClick() {
+        window.location.href = "../appSetting/addAppName";
+    }
+</script>
+</html>

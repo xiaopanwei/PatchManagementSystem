@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App管理</title>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <script type="text/javascript" src="{{ url_for('static',filename='layui/layui.js') }}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cssutil.css') }}" media="all">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item layui-row">
+        <a class="title">Patch</a>
+    </li>
+    <li class="layui-nav-item layui-this"><a href="">App管理</a></li>
+    <li class="layui-nav-item"><a  >补丁管理</a></li>
+    <li class="layui-nav-item" style="float:right">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{name}}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="../login/logout">退出登录</a></dd>
+        </dl>
+    </li>
+    l
+</ul>
+<label class="h1_title">App管理</label>
+<div class="body_container">
+    <button class="layui-btn layui-btn-normal layui-btn-radius" onclick="btnClick()"> 添加App</button>
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col width="200">
+            <col width="100">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>App名称</th>
+            <th>App最新版本</th>
+            <th>补丁最新版本</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        {% for patchDetails in patchList %}
+    <tr>
+        <td>{{patchDetails.appName}}</td>
+        <td>{{patchDetails.appLastVersionName}}</td>
+        <td>{{patchDetails.patchLastVersionName}}</td>
+        <td>
+            <a class="a" href="../patch/{{patchDetails.appId}}">管理</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+
+
+</body>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+    function btnClick() {
+        window.location.href="../appSetting/addAppName";
+    }
+</script>
+</html>

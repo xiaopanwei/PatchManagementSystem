@@ -1,0 +1,34 @@
+.title {
+    color: #ffffff;
+    font-size: 20px;
+    /*加粗*/
+    font-weight: 200;
+}
+.body_container {
+    width: 600px;
+    position: absolute;
+    top: 28%;
+    left: 28%;
+}
+.h1_title{
+    margin-top: 30px;
+    position: absolute;
+    left: 40%;
+    color: #000000;
+    font-size: 25px;
+    /*加粗*/
+    font-weight: 200;
+}
+.a {
+    color: #00BFFF;
+}
+.label{
+    font-size: 16px;
+    /*加粗*/
+    font-weight: 200;
+}
+.child{
+    position: relative;
+    margin-bottom: 40px;
+}
+
