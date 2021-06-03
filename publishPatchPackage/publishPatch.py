@@ -3,8 +3,9 @@ import time
 import math
 import oss2 as oss2
 from flask import Blueprint, render_template, session, request, redirect, url_for, jsonify
+from itsdangerous import json
 
-from db.publishPatchUtil.PublishPatchUtil import findVersionNameByCodeAndId, publishPatchUtil
+from db.publishPatchUtil.PublishPatchUtil import findVersionNameByCodeAndId, publishPatchUtil, getPatchList
 from modal import ossModal
 
 publishPatchBlueprint = Blueprint("publishPatch", __name__, static_folder="static", template_folder="template",
@@ -48,6 +49,17 @@ def uploadPatch():
         return jsonify({"error": 0, "msg":ossmodal.public_url + imagename,
                         "patch_size": bucket.get_object_meta(imagename).headers['Content-Length']})
 
+# 根据appid以及app版本号获得补丁下载地址
+@publishPatchBlueprint.route("/getPatch",methods=['POST','GET'])
+def bugDetailUpdate():
+    appId=request.args.get('app_id')
+    appVersion=request.args.get('app_version')
+    patchList=getPatchList(appId,appVersion)
+    # 使用lambda序列化
+    data = json.dumps({"patchList": patchList}, default=lambda obj: obj.__dict__,
+                      sort_keys=False)
+
+    return data
 
 # 设置允许的文件格式
 ALLOWED_EXTENSIONS = set(['patch'])
