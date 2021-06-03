@@ -17,3 +17,9 @@ class db:
         self.user_name = '输入你的云数据库 账号'
         self.password = '输入你的云数据库 密码'
         self.db_name = '数据库名称'
+
+
+体验地址：
+http://121.43.141.37:8000/
+
+xpw  123456
